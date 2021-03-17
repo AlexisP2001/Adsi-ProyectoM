@@ -14,6 +14,7 @@ class Server{
         await dbConnection();     
     }
     routes(){
+        // this.app.use('/api/categoria')
     }
     middlewares(){
         this.app.use(express.json());
