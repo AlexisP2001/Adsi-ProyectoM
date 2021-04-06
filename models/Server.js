@@ -1,6 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import dbConnection from '../DataBase/config.js';
+import categoria from '../routes/categoria.js'
+import usuario from '../routes/usuario.js'
 
 class Server{
     constructor(){
@@ -14,7 +16,8 @@ class Server{
         await dbConnection();     
     }
     routes(){
-        // this.app.use('/api/categoria')
+        this.app.use('/api/categoria',categoria)
+        this.app.use('/api/usuario',usuario)
     }
     middlewares(){
         this.app.use(express.json());

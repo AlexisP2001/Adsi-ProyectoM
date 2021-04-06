@@ -1,8 +1,8 @@
-import mongoose, { Collection } from "mongoose";
+import mongoose from "mongoose";
 
 const categoriaSchema= mongoose.Schema({
     nombre: {type: String, required:true,maxlenght:50,unique:true},
-    descripcion: {type: String,maxlenght:50},
+    descripcion: {type: String,maxlenght:250},
     estado:{type:Number, default:1},
     createdAt:{type:Date, default:Date.now}
 });
