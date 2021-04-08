@@ -23,6 +23,10 @@ const categoriasControllers = {
 
         const categoria = await Categoria.findOne({ _id: id })
 
+        res.json({
+            categoria
+        })
+
     },
 
     categoriaPost: async (req, res) => {

@@ -1,6 +1,6 @@
 import Usuario from '../models/usuario.js'
 import bcryptjs from 'bcryptjs'
-import { query } from 'express';
+import { generarJWT } from '../middlewares/validar-jwt.js';
 
 const usuarioController ={
     usuarioGet :async(req,res)=>{
@@ -29,6 +29,35 @@ const usuarioController ={
 
         res.json({
             usuario
+        })
+    },
+
+    login:async(req,res)=>{
+        const{email,password}=req.body;
+
+        const usuario=await Usuario.findOne({email})
+        if(!usuario){
+            return res.json({
+                msg:'Usuario/Password no son correctos'
+            })
+        }
+        if(usuario.estado === 0){
+            return res.json({
+                msg:'Usuario/Password no son correctos'
+            })
+        }
+
+        const validarPassword=bcryptjs.compareSync(password,usuario.password);
+        if(! validarPassword){
+            return res.json({
+                msg:'Usuario/Password no son correctos'
+            })
+        }
+        const token = await generarJWT(usuario.id);
+
+        res.json({
+            usuario,
+            token
         })
     },
 
@@ -71,6 +100,5 @@ const usuarioController ={
 
         res.json({usuario})
     }
-
 }
 export default usuarioController
