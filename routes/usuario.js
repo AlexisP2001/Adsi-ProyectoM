@@ -9,7 +9,7 @@ router.post('/',usuarioController.usuarioPost);
 router.put('/:id',usuarioController.usuarioPut);
 router.put('/activar/:id',usuarioController.usuarioPutActivar);
 router.put('/desactivar/:id',usuarioController.usuarioPutDesactivar);
-
+router.delete('/:id',usuarioController.usuarioDelete)
 router.post('/login',usuarioController.login)
 
 export default router;

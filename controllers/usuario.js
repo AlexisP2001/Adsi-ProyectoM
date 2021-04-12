@@ -99,6 +99,13 @@ const usuarioController ={
         const usuario=await Usuario.findByIdAndUpdate(id,{estado:0})
 
         res.json({usuario})
+    },
+    usuarioDelete:async(req,res)=>{
+        const{id}=req.params;
+        const usuario = await Usuario.findOneAndDelete(id)
+        res.json({
+            usuario
+        })
     }
 }
 export default usuarioController

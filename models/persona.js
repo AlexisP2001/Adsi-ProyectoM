@@ -8,6 +8,7 @@ const personasSchema= mongoose.Schema({
     direccion:{type:String,maxlenght:70},
     telefono:{type:String,maxlenght:15},
     email:{type:String,required:true,maxlenght:50,unique:true},
-    createdAt:{type:Date, default:Date.now}
+    createdAt:{type:Date, default:Date.now},
+    estado:{type:Number, default:1},
 });
 export default mongoose.model('Persona',personasSchema)
