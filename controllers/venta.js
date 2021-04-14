@@ -1,10 +1,10 @@
 import Venta from '../models/venta.js'
 import Articulo from '../models/articulo.js'
 
-const disminuirStock=async(id,cantidad)=>{
-    let {stock}=await Articulo.findById(id);
+const disminuirStock=async(_id,cantidad)=>{
+    let {stock}=await Articulo.findById(_id);
     stock=parseInt(stock)-parseInt(cantidad)
-    await Articulo.findByIdAndUpdate({id},{stock})
+    await Articulo.findByIdAndUpdate({_id},{stock})
 }
 
 const ventasController={
