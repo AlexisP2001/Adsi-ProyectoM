@@ -42,8 +42,7 @@ router.put('/desactivar/:id',[
     validarJWT,
     validarRoles('ALMACENISTA_ROL'),
     check('id','No es un id valido').isMongoId(),
-    check('id').custom(existeCategoriaById),
-    
+    check('id').custom(existeCategoriaById),    
     validarCampos],categoriasControllers.categoriaPutDesactivar);
 
 router.delete('/:id',[

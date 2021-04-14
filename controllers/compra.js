@@ -1,25 +1,25 @@
 import Compra from '../models/compra.js'
 import Articulo from '../models/articulo.js'
 
-const aumentarStock=async(id,cantidad)=>{
-    let {stock}=await Articulo.findById(id);
+const aumentarStock=async(_id,cantidad)=>{
+    let {stock}=await Articulo.findById(_id);
     stock=parseInt(stock)+parseInt(cantidad)
-    await Articulo.findByIdAndUpdate({id},{stock})
+    await Articulo.findByIdAndUpdate({_id},{stock})
 }
-const disminuirStock=async(id,cantidad)=>{
-    let {stock}=await Articulo.findById(id);
+const disminuirStock=async(_id,cantidad)=>{
+    let {stock}=await Articulo.findById(_id);
     stock=parseInt(stock)-parseInt(cantidad)
-    await Articulo.findByIdAndUpdate({id},{stock})
+    await Articulo.findByIdAndUpdate({_id},{stock})
 }
 
 const comprasController={
     compraPost:async(req,res)=>{
         const { usuario, persona,tipoComprobante,serieComprobante,numComprobante,impuesto,total, detalles } = req.body;
         const compra = new Compra({ usuario, persona,tipoComprobante,serieComprobante,numComprobante,impuesto,total,detalles });
-
+        
         await compra.save();
+        detalles.map((articulo)=> aumentarStock(articulo._id,articulo.cantidad))
 
-        detalles.map({articulo}=aumentarStock(articulo._id,articulo.cantidad))
 
         res.json({
             compra
@@ -55,7 +55,7 @@ const comprasController={
         const{id}=req.params;
         const compra =await Compra.findByIdAndUpdate(id,{estado:1})
 
-        detalles.map({articulo}=aumentarStock(articulo._id,articulo.cantidad))
+        detalles.map((articulo)=>aumentarStock(articulo._id,articulo.cantidad))
 
         res.json({
             compra
@@ -66,7 +66,7 @@ const comprasController={
         const{id}=req.params;
         const compra=await Compra.findByIdAndUpdate(id,{estado:0})
 
-        detalles.map({Articulo}=disminuirStock(articulo._id,articulo.cantidad))
+        detalles.map((articulo)=>disminuirStock(articulo._id,articulo.cantidad))
 
         res.json({
             compra

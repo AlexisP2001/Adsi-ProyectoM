@@ -7,5 +7,12 @@ const existeUsuarioById=async(id)=>{
         throw new Error(`El ID no existe`)
     }
 }
+const existeEmail=async(email)=>{
+    const existe=await Usuario.findOne(email)
 
-export{existeUsuarioById}
+    if(existe){
+        throw new Error(`Este Email ya se encuentra registrado`)
+    }
+}
+
+export{existeUsuarioById,existeEmail}

@@ -12,7 +12,7 @@ const ventasController={
         const { usuario, persona,tipoComprobante,serieComprobante,numComprobante,impuesto,descuento,total, detalles } = req.body;
         const venta = new Venta({ usuario, persona,tipoComprobante,serieComprobante,numComprobante,impuesto,descuento,total,detalles });
 
-        detalles.map({Articulo}=disminuirStock(articulo._id,articulo.cantidad))
+        detalles.map((articulo)=>disminuirStock(articulo._id,articulo.cantidad))
         await venta.save();
 
         res.json({
